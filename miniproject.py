@@ -1,13 +1,11 @@
-# -*- coding: utf-8 -*-
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
 
 # some data already altered with R and partly manually
-cyclistdata = pd.read_csv("cyclists.csv")
-weatherdata = pd.read_csv("weather.csv")
+cyclistdata = pd.read_csv("data/cyclists.csv")
+weatherdata = pd.read_csv("data/weather.csv")
 
 # modify date format
 weatherdata['DATE_TIME'] = weatherdata['DATE_TIME'] + "T" + weatherdata['HOUR']
@@ -76,7 +74,7 @@ def createGraph(data, key, title, xlabel, filename):
     data_baana = data.groupby(key)['Baana'].mean()
     data_espa = data.groupby(key)['Etelaesplanadi'].mean()
     
-    f = plt.figure()
+    f = plt.figure(figsize=(10, 7))
     plt.title(title)
     plt.plot(data_baana, label="Baana")
     plt.plot(data_espa, label="Etelä-esplanadi");
@@ -93,9 +91,9 @@ def createTimeOfDayGraphs(key, title, xlabel, filename):
     createGraph(eveningdata, key, title + ' (EVENING)', xlabel, 'evening_' + filename)
     createGraph(nightdata, key, title + ' (NIGHT)', xlabel, 'night_' + filename)
     
-createTimeOfDayGraphs('T_AVG', 'Amount of bikers relative to mean temperature during the previous hour', 'Temperature Celcius', 'temperature.png')
-createTimeOfDayGraphs('WD_AVG', 'Amount of bikers relative to average wind direction during the previous hour', 'Wind direction [deg 1-360, no wind = 0]', 'wind_direction.png')
-createTimeOfDayGraphs('WS_AVG', 'Amount of bikers relative to mean wind speed during the previous hour [m/s]', 'Wind speed m/s', 'wind_speed.png')
-createTimeOfDayGraphs('R_1H', 'Amount of bikers relative to precipitation sum during the previous hour', 'Precipitation sum [mm, no rain = -1]', 'rainfall.png')
+createTimeOfDayGraphs('T_AVG', 'Amount of bikers relative to mean temperature \n during the previous hour', 'Temperature Celcius', 'temperature.png')
+createTimeOfDayGraphs('WD_AVG', 'Amount of bikers relative to average wind direction\n during the previous hour', 'Wind direction [deg 1-360, no wind = 0]', 'wind_direction.png')
+createTimeOfDayGraphs('WS_AVG', 'Amount of bikers relative to mean wind speed\n during the previous hour [m/s]', 'Wind speed m/s', 'wind_speed.png')
+createTimeOfDayGraphs('R_1H', 'Amount of bikers relative to precipitation sum\n during the previous hour', 'Precipitation sum [mm, no rain = -1]', 'rainfall.png')
 
 ##############################################################
